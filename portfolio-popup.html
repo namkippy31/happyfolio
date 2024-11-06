@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <!-- 기존 head 내용 유지 -->
+    <style>
+        /* 기존 스타일 유지하고 팝업 관련 스타일 추가 */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            overflow-y: auto;
+            padding: 40px 20px;
+        }
+
+        .popup-overlay.active {
+            display: flex;
+        }
+
+        .popup-content {
+            background: #fff;
+            max-width: 1000px;
+            width: 90%;
+            border-radius: 20px;
+            position: relative;
+            padding: 40px;
+            animation: popupOpen 0.3s ease;
+        }
+
+        @keyframes popupOpen {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .popup-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .popup-close::before,
+        .popup-close::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 2px;
+            background: #000;
+        }
+
+        .popup-close::before {
+            transform: rotate(45deg);
+        }
+
+        .popup-close::after {
+            transform: rotate(-45deg);
+        }
+
+        .popup-image {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .popup-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .popup-description {
+            line-height: 1.8;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .popup-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .detail-item h4 {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .detail-item p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        body.popup-open {
+            overflow: hidden;
+        }
+
+        .work-item {
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .popup-content {
+                padding: 20px;
+            }
+            
+            .popup-overlay {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 기존 body 내용 유지하면서 works 섹션 수정 -->
+    <section class="works-section" id="works">
+        <h2 class="section-title">Works</h2>
+        <div class="works-grid">
+            <div class="work-item" onclick="openPopup('project1')">
+                <img src="/api/placeholder/600/400" alt="Project 1">
+                <div class="work-overlay">
+                    <h3 class="work-title">BT21 캠핑<br>프로모션</h3>
+                </div>
+            </div>
+            <!-- 다른 work-item들도 동일하게 onclick 추가 -->
+        </div>
+    </section>
+
+    <!-- 팝업 추가 -->
+    <div class="popup-overlay" id="popup-project1">
+        <div class="popup-content">
+            <button class="popup-close" onclick="closePopup('project1')"></button>
+            <img src="/api/placeholder/900/500" alt="Project 1 Detail" class="popup-image">
+            <h2 class="popup-title">BT21 캠핑 프로모션</h2>
+            <div class="popup-description">
+                <p>캠핑장에서 모험을 즐기는 BT21 친구들을 연상할 수 있는 아기자기한 캠핑 요소들을 재치있게 연결하여 팝업스토어의 특별함과 캐릭터들의 사랑스러움을 동시에 담아냈습니다.</p>
+            </div>
+            <div class="popup-details">
+                <div class="detail-item">
+                    <h4>작업 기간</h4>
+                    <p>2024.01 - 2024.02</p>
+                </div>
+                <div class="detail-item">
+                    <h4>작업 범위</h4>
+                    <p>UI/UX Design<br>Visual Design</p>
+                </div>
+                <div class="detail-item">
+                    <h4>프로그램</h4>
+                    <p>Figma, Photoshop, Illustrator</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openPopup(projectId) {
+            document.getElementById(`popup-${projectId}`).classList.add('active');
+            document.body.classList.add('popup-open');
+        }
+
+        function closePopup(projectId) {
+            document.getElementById(`popup-${projectId}`).classList.remove('active');
+            document.body.classList.remove('popup-open');
+        }
+
+        // ESC 키로 팝업 닫기
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const activePopup = document.querySelector('.popup-overlay.active');
+                if (activePopup) {
+                    activePopup.classList.remove('active');
+                    document.body.classList.remove('popup-open');
+                }
+            }
+        });
+
+        // 팝업 외부 클릭 시 닫기
+        document.querySelectorAll('.popup-overlay').forEach(overlay => {
+            overlay.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.remove('active');
+                    document.body.classList.remove('popup-open');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
