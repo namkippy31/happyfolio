@@ -235,7 +235,6 @@
         .popup-overlay.active {
             display: flex;
         }
-
         .popup-content {
     position: relative;
     max-width: 800px;
@@ -243,6 +242,44 @@
     background: white;
     padding: 2rem;
     border-radius: 8px;
+}
+
+.popup-close {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    width: 30px;
+    height: 30px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 10;
+}
+
+/* X 모양 만들기 */
+.popup-close::before,
+.popup-close::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 2px;
+    background-color: #333;
+    top: 50%;
+    left: 50%;
+}
+
+.popup-close::before {
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.popup-close::after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+/* 호버 효과 */
+.popup-close:hover::before,
+.popup-close:hover::after {
+    background-color: #666;
 }
 
 /* Image container styles */
@@ -501,7 +538,7 @@
             <a href="#" class="logo">Happy:folio</a>
             <nav>
                 <ul>
-                    <li class="active"><a href="#works">Works</a></li>
+                    <li class="active"><a href="#works">Project</a></li>
                     <li><a href="#about">About</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
@@ -515,7 +552,7 @@
         </div>
     </section>
     <section class="works-section" id="works">
-        <h2 class="section-title">Works</h2>
+        <h2 class="section-title">Project</h2>
         <div class="works-grid">
             <div class="work-item" onclick="openPopup('project1')">
                 <img src="./img/craftjoy_main.png" alt="Project 1">
