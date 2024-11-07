@@ -1,0 +1,210 @@
+/* style.css */
+@import 'base/reset.css';
+
+/* 전역 변수 */
+:root {
+   --color-primary: #000;
+   --color-secondary: #666;
+   --color-white: #fff;
+   --color-overlay: rgba(0, 0, 0, 0.7);
+   --max-width: 1200px;
+   --gap: 20px;
+   --border-radius: 10px;
+}
+
+/* 공통 */
+.section {
+   padding: 100px 0;
+}
+
+.section-title {
+   font-size: 32px;
+   font-weight: bold;
+   margin-bottom: 60px;
+}
+
+/* 헤더 */
+.header {
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   z-index: 100;
+   background: var(--color-white);
+}
+
+.header-inner {
+   max-width: var(--max-width);
+   margin: 0 auto;
+   padding: 20px var(--gap);
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+}
+
+.logo {
+   font-size: 24px;
+   font-weight: bold;
+   text-decoration: none;
+   color: var(--color-primary);
+}
+
+.nav-list {
+   display: flex;
+   gap: 40px;
+}
+
+.nav-list a {
+   text-decoration: none;
+   color: var(--color-primary);
+}
+
+/* 메인 비주얼 */
+.main-visual {
+   height: 100vh;
+   position: relative;
+}
+
+.visual-wrapper {
+   height: 100%;
+   position: relative;
+}
+
+.main-image {
+   width: 100%;
+   height: 100%;
+   object-fit: cover;
+}
+
+.main-content {
+   position: absolute;
+   bottom: 100px;
+   left: var(--gap);
+   color: var(--color-white);
+}
+
+/* 프로젝트 섹션 */
+.works-grid {
+   display: grid;
+   grid-template-columns: repeat(2, 1fr);
+   gap: var(--gap);
+   max-width: var(--max-width);
+   margin: 0 auto;
+   padding: 0 var(--gap);
+}
+
+.work-item {
+   position: relative;
+   border-radius: var(--border-radius);
+   overflow: hidden;
+   cursor: pointer;
+}
+
+.work-item img {
+   width: 100%;
+   height: auto;
+   transition: transform 0.3s ease;
+}
+
+.work-overlay {
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background: var(--color-overlay);
+   opacity: 0;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   transition: opacity 0.3s ease;
+}
+
+.work-item:hover .work-overlay {
+   opacity: 1;
+}
+
+.work-item:hover img {
+   transform: scale(1.05);
+}
+
+.work-title {
+   color: var(--color-white);
+   font-size: 24px;
+   text-align: center;
+}
+
+/* 팝업 */
+.popup-overlay {
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background: var(--color-overlay);
+   display: none;
+   justify-content: center;
+   align-items: center;
+   z-index: 1000;
+}
+
+.popup-content {
+   background: var(--color-white);
+   padding: 40px;
+   border-radius: var(--border-radius);
+   max-width: 800px;
+   width: 90%;
+   max-height: 90vh;
+   overflow-y: auto;
+}
+
+.popup-title {
+   font-size: 28px;
+   margin: 20px 0;
+}
+
+.popup-details {
+   display: grid;
+   grid-template-columns: repeat(3, 1fr);
+   gap: var(--gap);
+   margin-top: 40px;
+}
+
+/* About 섹션 */
+.about-container {
+   max-width: var(--max-width);
+   margin: 0 auto;
+   padding: 0 var(--gap);
+   display: grid;
+   grid-template-columns: 300px 1fr;
+   gap: 60px;
+}
+
+.about-image img {
+   width: 100%;
+   border-radius: var(--border-radius);
+}
+
+/* Contact 섹션 */
+.contact-container {
+   text-align: center;
+   max-width: var(--max-width);
+   margin: 0 auto;
+   padding: 0 var(--gap);
+}
+
+.contact-info {
+   margin-bottom: 40px;
+}
+
+.social-links {
+   display: flex;
+   justify-content: center;
+   gap: 20px;
+}
+
+.social-links a {
+   color: var(--color-primary);
+   text-decoration: none;
+   font-size: 20px;
+}
