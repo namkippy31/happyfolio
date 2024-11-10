@@ -437,7 +437,7 @@
                     <div class="tab-content">
                         <img src="./images/project1-pc.jpg" alt="PC Design" class="project-full-image" id="pcImage">
                         <img src="./images/project1-mobile.jpg" alt="Mobile Design" class="project-full-image hidden" id="mobileImage">
-                        <img src="./images/ux.png" alt="UX Process" class="project-full-image hidden" id="uxImage">
+                        <img src="./images/project1-ux.png" alt="UX Process" class="project-full-image hidden" id="uxImage">
                     </div>
         <div class="project-details">
             <h3>레진아트 브랜드</h3>
@@ -483,39 +483,47 @@
     <script>
 
 const projects = {
-        1: {
-            title: "레진아트 브랜드",
-            image: "./images/project1-pc.jpg",
-            description: "취미와 예술의 경계를 넘나드는 레진아트의 특별함을 담은 브랜드 웹사이트입니다. 색감과 표현이 다양한 소재가 주는 시각적 매력을 웹디자인 요소로 재해석하여 브랜드 아이덴티티를 강화했습니다. 초보자부터 전문가까지, 모든 사용자가 쉽게 접근할 수 있는 직관적인 인터페이스를 설계했습니다.",
-            period: "2024.01 - 2024.03",
-            scope: "UI/UX Design, Web Design, Branding",
-            tools: "Figma, Photoshop, Illustrator"
-        },
-        2: {
-            title: "프로젝트 2",
-            image: "./images/project2-full.jpg",
-            description: "두 번째 프로젝트에 대한 설명을 여기에 작성해주세요. 이 프로젝트만의 특별한 점과 주요 특징들을 설명하면 좋습니다.",
-            period: "2024.03 - 2024.05",
-            scope: "Web Design, Development",
-            tools: "Figma, React, Next.js"
-        },
-        3: {
-            title: "프로젝트 3",
-            image: "./images/project3-full.jpg",
-            description: "세 번째 프로젝트에 대한 설명을 여기에 작성해주세요. 프로젝트의 목적과 결과물에 대한 설명을 포함하면 좋습니다.",
-            period: "2024.05 - 2024.07",
-            scope: "Brand Design, Package Design",
-            tools: "Photoshop, Illustrator, InDesign"
-        },
-        4: {
-            title: "프로젝트 4",
-            image: "./images/project4-full.jpg",
-            description: "네 번째 프로젝트에 대한 설명을 여기에 작성해주세요. 작업 과정에서의 특별한 점이나 해결한 문제점들을 설명하면 좋습니다.",
-            period: "2024.07 - 2024.09",
-            scope: "UI/UX Design, Prototyping",
-            tools: "Figma, Principle, After Effects"
-        }
-    };
+    1: {
+        title: "레진아트 브랜드",
+        pcImage: "./images/project1-pc.jpg",
+        mobileImage: "./images/project1-mobile.jpg",
+        uxImage: "./images/project1-ux.png",
+        description: "                    취미와 예술의 경계를 넘나드는 레진아트의 특별함을 담은 브랜드 웹사이트입니다. 색감과 표현이 다양한 소재가 주는 시각적 매력을 웹디자인 요소로 재해석하여 브랜드 아이덴티티를 강화했습니다. 초보자부터 전문가까지, 모든 사용자가 쉽게 접근할 수 있는 직관적인 인터페이스를 설계했습니다.",
+        period: "2024.01 - 2024.03",
+        scope: "UI/UX Design, Web Design, Branding",
+        tools: "Figma, Photoshop, Illustrator"
+    },
+    2: {
+        title: "Project 2",
+        pcImage: "./images/project2-pc.jpg",
+        mobileImage: "./images/project2-mobile.jpg",
+        uxImage: "./images/project2-ux.png",
+        description: "프로젝트 2 설명...",
+        period: "2024.03 - 2024.05",
+        scope: "UI/UX Design",
+        tools: "Figma, Photoshop"
+    },
+    3: {
+        title: "Project 3",
+        pcImage: "./images/project3-pc.jpg",
+        mobileImage: "./images/project3-mobile.jpg",
+        uxImage: "./images/project3-ux.png",
+        description: "프로젝트 3 설명...",
+        period: "2024.05 - 2024.07",
+        scope: "Web Design",
+        tools: "Figma, Illustrator"
+    },
+    4: {
+        title: "Project 4",
+        pcImage: "./images/project4-pc.jpg",
+        mobileImage: "./images/project4-mobile.jpg",
+        uxImage: "/images/project4-ux.png",
+        description: "프로젝트 4 설명...",
+        period: "2024.07 - 2024.09",
+        scope: "Brand Design",
+        tools: "Photoshop, Illustrator"
+    }
+};
 
 
     // 스크롤 기능
@@ -525,12 +533,14 @@ const projects = {
 
     // 프로젝트 팝업
     function openProject(id) {
-        const project = projects[id];
-        const popup = document.getElementById('projectPopup');
+    const project = projects[id];  // id에 맞는 프로젝트 객체를 가져옵니다.
+    const popup = document.getElementById('projectPopup');
+
         
         // 팝업 내용 업데이트
-        popup.querySelector('.project-full-image').src = project.image;
-        popup.querySelector('.project-details h3').textContent = project.title;
+        document.getElementById('pcImage').src = project.pcImage;  // PC 이미지
+    document.getElementById('mobileImage').src = project.mobileImage;  // 모바일 이미지
+    document.getElementById('uxImage').src = project.uxImage;  // UX 프로세스 이미지        popup.querySelector('.project-details h3').textContent = project.title;
         popup.querySelector('.project-description').textContent = project.description;
         popup.querySelector('.info-item:nth-child(1) p').textContent = project.period;
         popup.querySelector('.info-item:nth-child(2) p').textContent = project.scope;
