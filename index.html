@@ -94,7 +94,6 @@
             height: 600px;
             object-fit: cover;
             border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
         }
 
         /* Projects 섹션 스타일 */
@@ -437,7 +436,10 @@
                     <div class="tab-content">
                         <img src="./images/project1-pc.jpg" alt="PC Design" class="project-full-image" id="pcImage">
                         <img src="./images/project1-mobile.jpg" alt="Mobile Design" class="project-full-image hidden" id="mobileImage">
+                        <img src="./images/project2-detail.jpg" alt="Detail Page" class="project-full-image hidden" id="detailImage">
                         <img src="./images/project1-ux.png" alt="UX Process" class="project-full-image hidden" id="uxImage">
+                        <img src="./images/project4-promotion.jpg" alt="Promotion Page" class="project-full-image hidden" id="promotionImage">
+                        <img src="./images/project4-isometric.jpg" alt="Isometric View" class="project-full-image hidden" id="isometricImage">
                     </div>
         <div class="project-details">
             <h3>레진아트 브랜드</h3>
@@ -482,80 +484,161 @@
 
     <script>
 
-const projects = {
+    const projects = {
     1: {
-        title: "레진아트 브랜드",
+        title: "Sony Redesign",
         pcImage: "./images/project1-pc.jpg",
         mobileImage: "./images/project1-mobile.jpg",
-        uxImage: "./images/project1-ux.png",
-        description: "                    취미와 예술의 경계를 넘나드는 레진아트의 특별함을 담은 브랜드 웹사이트입니다. 색감과 표현이 다양한 소재가 주는 시각적 매력을 웹디자인 요소로 재해석하여 브랜드 아이덴티티를 강화했습니다. 초보자부터 전문가까지, 모든 사용자가 쉽게 접근할 수 있는 직관적인 인터페이스를 설계했습니다.",
-        period: "2024.01 - 2024.03",
+        uxImage: "./images/project1-ux.png",  // UX Process 유지
+        description: "일상의 특별한 순간을 포착하는 소니의 철학을 담아, 사용자 중심의 직관적인 인터페이스와 감각적인 비주얼로 디지털 플랫폼을 리디자인하였습니다.",
+        period: "2024.09 - 2024.10",
         scope: "UI/UX Design, Web Design, Branding",
-        tools: "Figma, Photoshop, Illustrator"
+        tools: "Figma, Photoshop, Illustrator",
+        isDetailPage: false  // UX Process 사용
     },
     2: {
-        title: "Project 2",
+        title: "레진아트 소개페이지",
         pcImage: "./images/project2-pc.jpg",
         mobileImage: "./images/project2-mobile.jpg",
-        uxImage: "./images/project2-ux.png",
-        description: "프로젝트 2 설명...",
-        period: "2024.03 - 2024.05",
+        detailImage: "./images/project2-detail.jpg",  // Detail Page 이미지
+        description: "취미와 예술의 경계를 넘나드는 레진아트의 특별함을 담은 브랜드 웹사이트입니다. 색감과 표현이 다양한 소재가 주는 시각적 매력을 웹디자인 요소로 재해석하여 브랜드 아이덴티티를 강화했습니다. 초보자부터 전문가까지, 모든 사용자가 쉽게 접근할 수 있는 직관적인 인터페이스를 설계했습니다.",
+        period: "2024.07",
         scope: "UI/UX Design",
-        tools: "Figma, Photoshop"
+        tools: "Figma, Photoshop",
+        isDetailPage: true  // Detail Page 사용
     },
     3: {
-        title: "Project 3",
+        title: "LG gram",
         pcImage: "./images/project3-pc.jpg",
         mobileImage: "./images/project3-mobile.jpg",
-        uxImage: "./images/project3-ux.png",
-        description: "프로젝트 3 설명...",
-        period: "2024.05 - 2024.07",
+        uxImage: "./images/project3-ux.png",  // UX Process 유지
+        description: "LG 그램의 핵심 가치인 초경량성과 휴대성을 강조한 독립 웹사이트를 디자인하고 개발했습니다. 복잡한 통합 사이트의 한계를 개선하여 사용자 중심의 직관적인 UI/UX를 구현하고, 제품의 특징을 효과적으로 전달하는 맞춤형 브랜딩 사이트를 구축했습니다.",
+        period: "2024.09 - 2024.10",
         scope: "Web Design",
-        tools: "Figma, Illustrator"
+        tools: "Figma, Illustrator",
+        isDetailPage: false  // UX Process 사용
     },
     4: {
         title: "Project 4",
-        pcImage: "./images/project4-pc.jpg",
-        mobileImage: "./images/project4-mobile.jpg",
-        uxImage: "/images/project4-ux.png",
+        promotionImage: "./images/project4-promotion.jpg", 
+        isometricImage: "./images/project4-isometric.jpg",  
         description: "프로젝트 4 설명...",
         period: "2024.07 - 2024.09",
         scope: "Brand Design",
-        tools: "Photoshop, Illustrator"
+        tools: "Photoshop, Illustrator",
+        isCustomTab: true  // 커스텀 탭 사용 여부
     }
 };
 
 
-    // 스크롤 기능
-    function scrollToSection(sectionId) {
-        document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
-    }
+function scrollToSection(sectionId) {
+    document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+}
 
-    // 프로젝트 팝업
-    function openProject(id) {
-    const project = projects[id];  // id에 맞는 프로젝트 객체를 가져옵니다.
+function openProject(id) {
+    const project = projects[id];
     const popup = document.getElementById('projectPopup');
 
-        
-        // 팝업 내용 업데이트
-        document.getElementById('pcImage').src = project.pcImage;  // PC 이미지
-    document.getElementById('mobileImage').src = project.mobileImage;  // 모바일 이미지
-    document.getElementById('uxImage').src = project.uxImage;  // UX 프로세스 이미지        popup.querySelector('.project-details h3').textContent = project.title;
-        popup.querySelector('.project-description').textContent = project.description;
-        popup.querySelector('.info-item:nth-child(1) p').textContent = project.period;
-        popup.querySelector('.info-item:nth-child(2) p').textContent = project.scope;
-        popup.querySelector('.info-item:nth-child(3) p').textContent = project.tools;
-        
-        // 팝업 표시
-        popup.classList.add('active');
-        document.body.style.overflow = 'hidden';
+    // 탭 버튼 동적 생성
+    const tabButtons = popup.querySelector('.tab-buttons');
+    if (project.isDetailPage) {  // 레진아트 프로젝트
+        tabButtons.innerHTML = `
+            <button class="tab-btn active" onclick="switchTab('pc')">PC</button>
+            <button class="tab-btn" onclick="switchTab('mobile')">Mobile</button>
+            <button class="tab-btn" onclick="switchTab('detail')">Detail Page</button>
+        `;
+    } else if (project.isCustomTab) {  // 프로젝트 4
+        tabButtons.innerHTML = `
+            <button class="tab-btn active" onclick="switchTab('promotion')">프로모션페이지</button>
+            <button class="tab-btn" onclick="switchTab('isometric')">아이소메트릭</button>
+        `;
+    } else {  // 다른 프로젝트들
+        tabButtons.innerHTML = `
+            <button class="tab-btn active" onclick="switchTab('pc')">PC</button>
+            <button class="tab-btn" onclick="switchTab('mobile')">Mobile</button>
+            <button class="tab-btn" onclick="switchTab('ux')">UX Process</button>
+        `;
     }
+    
+    // 이미지 설정
+    if (project.isCustomTab) {  // 프로젝트 4
+        document.getElementById('promotionImage').src = project.promotionImage;
+        document.getElementById('isometricImage').src = project.isometricImage;
+    } else if (project.isDetailPage) {  // 레진아트 프로젝트
+        document.getElementById('pcImage').src = project.pcImage;
+        document.getElementById('mobileImage').src = project.mobileImage;
+        document.getElementById('detailImage').src = project.detailImage;
+    } else {  // 다른 프로젝트들
+        document.getElementById('pcImage').src = project.pcImage;
+        document.getElementById('mobileImage').src = project.mobileImage;
+        document.getElementById('uxImage').src = project.uxImage;
+    }
+    
+    // 나머지 내용 업데이트
+    popup.querySelector('.project-details h3').textContent = project.title;
+    popup.querySelector('.project-description').textContent = project.description;
+    popup.querySelector('.info-item:nth-child(1) p').textContent = project.period;
+    popup.querySelector('.info-item:nth-child(2) p').textContent = project.scope;
+    popup.querySelector('.info-item:nth-child(3) p').textContent = project.tools;
+    
+    // 팝업 표시
+    popup.classList.add('active');
+    document.body.style.overflow = 'hidden';
 
-    function closeProject() {
-        document.getElementById('projectPopup').classList.remove('active');
-        document.body.style.overflow = '';
+    // 각 프로젝트에 맞는 초기 탭 설정
+    if (project.isCustomTab) {
+        switchTab('promotion');
+    } else {
+        switchTab('pc');
     }
-    function switchTab(tab) {
+}
+
+function switchTab(tab) {
+    // 모든 탭 버튼의 active 클래스 제거
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    
+    // 클릭된 탭 버튼에 active 클래스 추가
+    event.target.classList.add('active');
+    
+    // 모든 이미지 숨기기
+    document.getElementById('pcImage')?.classList.add('hidden');
+    document.getElementById('mobileImage')?.classList.add('hidden');
+    document.getElementById('detailImage')?.classList.add('hidden');
+    document.getElementById('uxImage')?.classList.add('hidden');
+    document.getElementById('promotionImage')?.classList.add('hidden');
+    document.getElementById('isometricImage')?.classList.add('hidden');
+    
+    // 선택된 탭의 이미지 보이기
+    if(tab === 'promotion') {
+        document.getElementById('promotionImage').classList.remove('hidden');
+    } else if(tab === 'isometric') {
+        document.getElementById('isometricImage').classList.remove('hidden');
+    } else if(tab === 'pc') {
+        document.getElementById('pcImage').classList.remove('hidden');
+    } else if(tab === 'mobile') {
+        document.getElementById('mobileImage').classList.remove('hidden');
+    } else if(tab === 'detail') {
+        document.getElementById('detailImage').classList.remove('hidden');
+    } else if(tab === 'ux') {
+        document.getElementById('uxImage').classList.remove('hidden');
+    }
+}
+
+function closeProject() {
+    const popup = document.getElementById('projectPopup');
+    popup.classList.remove('active');
+    document.body.style.overflow = '';
+
+    // 탭 초기화
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    document.querySelector('.tab-btn').classList.add('active');
+}
+
+function switchTab(tab) {
     // 모든 탭 버튼의 active 클래스 제거
     document.querySelectorAll('.tab-btn').forEach(btn => {
         btn.classList.remove('active');
@@ -567,14 +650,24 @@ const projects = {
     // 모든 이미지 숨기기
     document.getElementById('pcImage').classList.add('hidden');
     document.getElementById('mobileImage').classList.add('hidden');
-    document.getElementById('uxImage').classList.add('hidden');
+    document.getElementById('detailImage')?.classList.add('hidden');
+    document.getElementById('uxImage')?.classList.add('hidden');
+    document.getElementById('promotionImage')?.classList.add('hidden');
+    document.getElementById('isometricImage')?.classList.add('hidden');
     
     // 선택된 탭의 이미지 보이기
-    if(tab === 'pc') {
+    // 선택된 탭의 이미지 보이기
+    if(tab === 'promotion') {
+        document.getElementById('promotionImage').classList.remove('hidden');
+    } else if(tab === 'isometric') {
+        document.getElementById('isometricImage').classList.remove('hidden');
+    } else if(tab === 'pc') {
         document.getElementById('pcImage').classList.remove('hidden');
     } else if(tab === 'mobile') {
         document.getElementById('mobileImage').classList.remove('hidden');
-    } else {
+    } else if(tab === 'detail') {
+        document.getElementById('detailImage').classList.remove('hidden');
+    } else if(tab === 'ux') {
         document.getElementById('uxImage').classList.remove('hidden');
     }
 }
