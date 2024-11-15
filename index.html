@@ -340,7 +340,7 @@
 
 /* Contact 섹션 */
 #contact {
-   min-height: 100vh;
+   min-height: auto;
    padding: 120px;  /* Projects 섹션과 동일한 패딩 */
 }
 
@@ -357,9 +357,13 @@
 }
 
 @media (max-width: 768px) {
-   #about, #contact {
+   #about {
        padding: 20px;
    }
+   #contact {
+       padding: 60px 20px;
+   }
+}
    
    .about-container {
        grid-template-columns: 1fr;
@@ -438,6 +442,38 @@
 }
 /* 반응형 스타일 */
 @media (max-width: 768px) {
+   /* 헤더 조정 */
+   .header-content {
+       position: relative;
+       width: 100%;
+       padding: 0 20px;
+   }
+
+   .hamburger {
+       right: 20px;
+       /* 햄버거 메뉴가 짤리지 않도록 위치 조정 */
+       position: absolute;
+       transform: translateX(-50%);
+   }
+
+   /* 배경색 처리 */
+   #about {
+       width: 100%;
+       min-width: 100vw;
+       box-sizing: border-box;
+       margin: 0;
+       background-color: #F5F5F5;
+   }
+
+   /* 컨테이너 padding 조정 */
+   .project-content,
+   .about-container,
+   .contact-container {
+       padding: 0 20px;
+       width: 100%;
+       box-sizing: border-box;
+   }
+}
     .about-container {
         grid-template-columns: 1fr;
         gap: 40px;
