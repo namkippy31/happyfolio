@@ -310,6 +310,147 @@
 .tab-content img.hidden {
     display: none;
 }
+
+/* About 섹션 스타일 */
+/* About 섹션 */
+#about {
+   min-height: 100vh;
+   padding: 120px;
+   background-color: #F5F5F5;
+}
+.about-container {
+   display: grid;
+   grid-template-columns: repeat(2, 1fr);
+   gap: 40px;
+   max-width: 1200px;
+   margin: 0 auto;
+}
+
+.about-image {
+   position: relative;
+   border-radius: 12px;
+   overflow: hidden;
+   aspect-ratio: 4/3;
+}
+
+.about-image img {
+   height: 600px;
+   object-fit: cover;
+}
+
+/* Contact 섹션 */
+#contact {
+   min-height: 100vh;
+   padding: 120px;  /* Projects 섹션과 동일한 패딩 */
+}
+
+.contact-container {
+   max-width: 1920px;  /* Projects 섹션과 동일한 최대 너비 */
+   margin: 0 auto;
+}
+
+/* 반응형 유지 */
+@media (max-width: 1400px) {
+   #about, #contact {
+       padding: 60px;
+   }
+}
+
+@media (max-width: 768px) {
+   #about, #contact {
+       padding: 20px;
+   }
+   
+   .about-container {
+       grid-template-columns: 1fr;
+   }
+}.about-container {
+   display: grid;
+   grid-template-columns: repeat(2, 1fr);
+   gap: 40px;
+   max-width: 1200px;
+   margin: 0 auto;
+}
+
+.about-image {
+   position: relative;
+   border-radius: 12px;
+   overflow: hidden;
+   aspect-ratio: 4/3;
+}
+
+.about-image img {
+    height: 100%;  /* 600px 대신 100%로 변경 */
+   width: 100%;
+   object-fit: contain; 
+
+}
+.about-text {
+    font-size: 18px;
+    line-height: 1.8;
+    color: #666;
+    margin-bottom: 40px;
+}
+
+.about-text p {
+    margin-bottom: 20px;
+}
+
+/* Skills 아이콘 스타일 */
+.skills-links {
+    display: flex;
+    gap: 20px;
+}
+
+.skills-links a {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 16px;
+    transition: transform 0.2s ease;
+    position: relative;
+}
+
+.skill-icon {
+    width: 25px;
+    height: 25px;
+    object-fit: contain;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Contact 섹션 스타일 */
+.contact-info {
+    text-align: center;
+    font-size: 24px;
+    line-height: 2;
+    color: #333;
+}
+.hamburger {
+   display: none;
+}
+/* 반응형 스타일 */
+@media (max-width: 768px) {
+    .about-container {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    
+    .about-text {
+        font-size: 16px;
+    }
+    
+    .contact-info {
+        font-size: 20px;
+    }
+}
         /* 반응형 스타일 */
         @media (max-width: 1400px) {
             .header-content, .hero-content, .project-content {
@@ -357,13 +498,66 @@
                 gap: 20px;
             }
         }
+        /* 반응형 스타일 */
+@media (max-width: 768px) {
+   /* 헤더 반응형 */
+   .header-content {
+       padding: 0 20px;
+   }
+
+   nav {
+       display: none; /* 기본적으로 메뉴 숨김 */
+   }
+
+   /* 햄버거 메뉴 버튼 */
+   .hamburger {
+       display: block;
+       position: absolute;
+       right: 20px;
+       width: 30px;
+       height: 30px;
+       cursor: pointer;
+   }
+
+   /* 모바일 메뉴 활성화 시 */
+   nav.active {
+       display: flex;
+       flex-direction: column;
+       position: absolute;
+       top: 80px;
+       left: 0;
+       right: 0;
+       background: white;
+       padding: 20px;
+       box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+   }
+
+   /* 프로젝트 그리드 수정 */
+   .projects-grid {
+       grid-template-columns: 1fr;
+       gap: 20px;
+   }
+
+   /* About 섹션 반응형 */
+   .about-container {
+       grid-template-columns: 1fr;
+       gap: 20px;
+   }
+
+   /* 배경 처리 */
+   #about, #project, #contact {
+       padding: 60px 20px;
+   }
+}
     </style>
 </head>
 <body>
     <!-- Header -->
     <header>
+        
         <div class="header-content">
             <img src="./images/logo.png" alt="Logo" class="logo">
+            <button class="hamburger" onclick="toggleMenu()">☰</button>
             <nav>
                 <button onclick="scrollToSection('home')">Home</button>
                 <button onclick="scrollToSection('project')">Project</button>
@@ -466,24 +660,46 @@
         </div>
     </div>
 
-    <!-- About Section -->
-    <section id="about">
-        <div class="project-content">
-            <h2 class="section-title">About</h2>
-            <!-- About 내용 추가 -->
+<!-- About Section -->
+<section id="about" class="min-h-screen py-32 px-8 lg:px-32">
+    <div class="project-content">
+        <h2 class="section-title">About</h2>
+        <div class="about-container">
+            <div class="about-image">
+                <img src="./images/profile.jpg" alt="Profile">
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>안녕하세요, 따뜻한 시선으로 사용자 경험을 디자인하는 UIUX 디자이너, 남기쁨입니다.</p>
+                    <p>유치원 교사 경험을 통해 배운 세심한 관찰력과 공감 능력으로 사용자 중심의 디자인을 만들어갑니다.</p>
+                    <p>매일 다양한 디자인의 클론과 벤치마킹을 통해 디자인 실력을 키우고 있습니다.</p>
+                </div>
+                <div class="skills-links">
+                    <a aria-label="Photoshop">Ps</a>
+                    <a aria-label="Illustrator">Ai</a>
+                    <a aria-label="Figma">
+                        <img src="./images/figma-icon.png" alt="Figma" class="skill-icon">
+                    </a>
+                </div>
+            </div>
         </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact">
-        <div class="project-content">
-            <h2 class="section-title">Contact</h2>
-            <!-- Contact 내용 추가 -->
+    </div>
+</section>
+<!-- Contact Section -->
+<section id="contact" class="min-h-screen py-32 px-8 lg:px-32">
+    <div class="project-content">
+        <h2 class="section-title">Contact</h2>
+        <div class="contact-info">
+            <p>010-4684-3853</p>
+            <p>namkippy31@kakao.com</p>
         </div>
-    </section>
-
+    </div>
+</section>
     <script>
-
+function toggleMenu() {
+    const nav = document.querySelector('nav');
+    nav.classList.toggle('active');
+}
     const projects = {
     1: {
         title: "Sony Redesign",
