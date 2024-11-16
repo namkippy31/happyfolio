@@ -56,7 +56,7 @@
 }
 
 .hidden {
-   display: none;
+    display: none !important;
 }
 
         .logo {
@@ -891,7 +891,6 @@ function openProject(id) {
         switchTab('pc');
     }
 }
-
 function switchTab(tab) {
     // 모든 탭 버튼의 active 클래스 제거
     document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -902,19 +901,13 @@ function switchTab(tab) {
     event.target.classList.add('active');
     
     // 모든 이미지 숨기기
-    document.getElementById('pcImage')?.classList.add('hidden');
-    document.getElementById('mobileImage')?.classList.add('hidden');
+    document.getElementById('pcImage').classList.add('hidden');
+    document.getElementById('mobileImage').classList.add('hidden');
     document.getElementById('detailImage')?.classList.add('hidden');
     document.getElementById('uxImage')?.classList.add('hidden');
-    document.getElementById('promotionImage')?.classList.add('hidden');
-    document.getElementById('isometricImage')?.classList.add('hidden');
     
-    // 선택된 탭의 이미지 보이기
-    if(tab === 'promotion') {
-        document.getElementById('promotionImage').classList.remove('hidden');
-    } else if(tab === 'isometric') {
-        document.getElementById('isometricImage').classList.remove('hidden');
-    } else if(tab === 'pc') {
+    // 선택된 탭의 이미지만 보이기
+    if(tab === 'pc') {
         document.getElementById('pcImage').classList.remove('hidden');
     } else if(tab === 'mobile') {
         document.getElementById('mobileImage').classList.remove('hidden');
