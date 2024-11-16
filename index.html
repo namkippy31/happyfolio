@@ -514,6 +514,11 @@
         font-size: 20px;
     }
 }
+#mobileImage {
+       width: 100%; /* 모바일 화면에서는 컨테이너에 맞춤 */
+       max-width: 375px; /* 최대 너비 제한 */
+   }
+
         /* 반응형 스타일 */
         @media (max-width: 1400px) {
             .header-content, .hero-content, .project-content {
@@ -680,13 +685,13 @@
                 <div class="project-card" onclick="openProject(2)">
                     <img src="./images/project2-thumb.jpg" alt="Project 2" class="project-thumb">
                     <div class="project-overlay">
-                        <h3 class="project-title">레진아트 소개페이지</h3>
+                        <h3 class="project-title"><p>LG Gram</p><p>독립 웹페이지</p></h3>
                     </div>
                 </div>
                 <div class="project-card" onclick="openProject(3)">
                     <img src="./images/project3-thumb.jpg" alt="Project 3" class="project-thumb">
                     <div class="project-overlay">
-                        <h3 class="project-title"><p>LG Gram</p><p>독립 웹페이지</p></h3>
+                        <h3 class="project-title">레진아트 소개페이지</h3>
                     </div>
                 </div>
                 <div class="project-card" onclick="openProject(4)">
@@ -796,17 +801,6 @@
         isDetailPage: false  // UX Process 사용
     },
     2: {
-        title: "레진아트 소개페이지",
-        pcImage: "./images/project2-pc.jpg",
-        mobileImage: "./images/project2-mobile.jpg",
-        detailImage: "./images/project2-detail.jpg",  // Detail Page 이미지
-        description: "취미와 예술의 경계를 넘나드는 레진아트의 특별함을 담은 브랜드 웹사이트입니다. 색감과 표현이 다양한 소재가 주는 시각적 매력을 웹디자인 요소로 재해석하여 브랜드 아이덴티티를 강화했습니다. 초보자부터 전문가까지, 모든 사용자가 쉽게 접근할 수 있는 직관적인 인터페이스를 설계했습니다.",
-        period: "2024.07",
-        scope: "UI/UX Design",
-        tools: "Figma, Photoshop",
-        isDetailPage: true  // Detail Page 사용
-    },
-    3: {
         title: "LG gram",
         pcImage: "./images/project3-pc.jpg",
         mobileImage: "./images/project3-mobile.jpg",
@@ -815,13 +809,25 @@
         period: "2024.09 - 2024.10",
         scope: "Web Design",
         tools: "Figma, Illustrator",
-        isDetailPage: false  // UX Process 사용
+        isDetailPage: false  // Detail Page 사용
+    },
+    3: {
+
+        title: "레진아트 소개페이지",
+        pcImage: "./images/project2-pc.jpg",
+        mobileImage: "./images/project2-mobile.jpg",
+        detailImage: "./images/project2-detail.jpg",  // Detail Page 이미지
+        description: "취미와 예술의 경계를 넘나드는 레진아트의 특별함을 담은 브랜드 웹사이트입니다. 색감과 표현이 다양한 소재가 주는 시각적 매력을 웹디자인 요소로 재해석하여 브랜드 아이덴티티를 강화했습니다. 초보자부터 전문가까지, 모든 사용자가 쉽게 접근할 수 있는 직관적인 인터페이스를 설계했습니다.",
+        period: "2024.07",
+        scope: "UI/UX Design",
+        tools: "Figma, Photoshop",
+        isDetailPage: true  // UX Process 사용
     },
     4: {
         title: "Project 4",
         promotionImage: "./images/project4-promotion.jpg", 
         isometricImage: "./images/project4-isometric.jpg",  
-        description: "프로젝트 4 설명...",
+        description: "프로모션 페이지와 아이소메트릭 일러스트레이션의 모든 작업을 Photoshop과 Illustrator를 활용하여 제작했습니다. 특히 프로모션 페이지는 초기 아트웍부터 최종 디자인까지, 시각적 요소들을 직접 작업하여 독창성이 돋보이는 결과물을 완성했습니다. 각 작업물은 디자인 스타일과 브랜드 아이덴티티의 조화를 고려하며 섬세하게 구현되었습니다.",
         period: "2024.07 - 2024.09",
         scope: "Brand Design",
         tools: "Photoshop, Illustrator",
@@ -837,6 +843,21 @@ function scrollToSection(sectionId) {
 function openProject(id) {
     const project = projects[id];
     const popup = document.getElementById('projectPopup');
+
+    // 이미지 크기 설정
+    const images = popup.querySelectorAll('.project-full-image');
+    images.forEach(img => {
+        // project4일 경우 width 900px로 설정
+        if(id === 4) {
+            img.style.width = '900px';
+            img.style.margin = '0 auto'; // 가운데 정렬
+            img.style.display = 'block';
+        } else {
+            img.style.width = '100%';
+            img.style.margin = '';
+            img.style.display = '';
+        }
+    });
 
     // 탭 버튼 동적 생성
     const tabButtons = popup.querySelector('.tab-buttons');
