@@ -30,16 +30,34 @@
             border-bottom: 1px solid #eee;
             z-index: 1000;
         }
+/* 기본 헤더 스타일 */
+.header-content {
+    max-width: 1920px;
+   margin: 0 auto;
+   padding: 0 120px;
+   height: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+}
 
-        .header-content {
-            max-width: 1920px;
-            margin: 0 auto;
-            padding: 0 120px;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
+/* 햄버거 메뉴 기본 스타일 */
+.hamburger {
+   display: none;
+   background: none;
+   border: none;
+   font-size: 24px;
+   cursor: pointer;
+   z-index: 1001;
+}
+
+.hamburger-icon, .close-icon {
+   transition: opacity 0.3s;
+}
+
+.hidden {
+   display: none;
+}
 
         .logo {
             height: 60px;
@@ -108,18 +126,18 @@
         }
 
         .section-title {
-            font-size: 48px;
-            font-weight: 700;
-            margin-bottom: 60px;
-        }
-
-        .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 4개에서 2개로 변경 */
-    gap: 40px; /* 간격 좀 더 넓게 수정 */
-    max-width: 1200px; /* 최대 너비 설정 */
-    margin: 0 auto; /* 중앙 정렬 */
+   font-size: 48px;
+   font-weight: 700;
+   margin-bottom: 60px;
 }
+        .projects-grid {
+   display: grid;
+   grid-template-columns: repeat(2, 1fr);
+   gap: 40px;
+   max-width: 1200px;
+   margin: 0 auto;
+}
+
 
     .project-card {
     position: relative;
@@ -312,6 +330,7 @@
 }
 
 /* About 섹션 스타일 */
+
 /* About 섹션 */
 #about {
    min-height: 100vh;
@@ -357,8 +376,48 @@
 }
 
 @media (max-width: 768px) {
-   #about, #contact {
-       padding: 20px;
+   /* 섹션 공통 스타일 */
+   #project, #about, #contact {
+       padding: 60px 20px;
+   }
+
+   /* 섹션 타이틀 반응형 */
+   .section-title {
+       font-size: 36px;
+       margin-bottom: 40px;
+       text-align: center;
+   }
+
+   /* 프로젝트 그리드 반응형 */
+   .projects-grid {
+       grid-template-columns: 1fr;  /* 1열로 변경 */
+       gap: 20px;
+       max-width: 100%;
+       padding: 0 20px;
+   }
+
+   .project-card {
+       width: 100%;
+       margin: 0 auto;
+   }
+
+   /* About 섹션 반응형 */
+   .about-container {
+       grid-template-columns: 1fr;
+       gap: 30px;
+       padding: 0 20px;
+   }
+
+   /* Contact 섹션 반응형 */
+   .contact-container {
+       padding: 0 20px;
+   }
+
+   .project-content,
+   .about-container,
+   .contact-container {
+       width: 100%;
+       margin: 0 auto;
    }
    
    .about-container {
@@ -436,6 +495,7 @@
 
 /* 반응형 스타일 */
 @media (max-width: 768px) {
+    
     .about-container {
         grid-template-columns: 1fr;
         gap: 40px;
@@ -471,10 +531,56 @@
 
         @media (max-width: 768px) {
             .header-content {
+        padding: 0 20px;
+    }
+
+    /* 기본 네비게이션 숨김 */
+    .header-content {
        padding: 0 20px;
-       text-align: center;
    }
 
+   /* 기본 네비게이션 숨김 */
+   nav {
+       display: none;
+       position: fixed;
+       inset: 0;
+       width: 100%;
+       height: 100%;
+   }
+
+   /* 햄버거 버튼 표시 */
+   .hamburger {
+       display: block;
+       position: absolute;
+       right: 20px;
+       top: 50%;
+       transform: translateY(-50%);
+   }
+
+   /* 전체화면 메뉴 스타일 */
+   nav.active {
+       display: flex !important;
+       flex-direction: column;
+       justify-content: center;
+       align-items: center;
+       position: fixed;
+       left: 0;
+       top: 0;
+       width: 100vw;
+       height: 100vh;
+       background: white;
+       z-index: 1000;
+       transform: none;
+       gap: 30px;
+   }
+
+   nav.active button {
+       font-size: 20px;
+       padding: 15px 30px;
+       margin: 10px 0;
+       width: auto;
+       text-align: center;
+   }
    .logo {
        height: 40px; /* 로고 크기 줄임 */
    }
@@ -530,6 +636,10 @@
     <header>
         <div class="header-content">
             <img src="./images/logo.png" alt="Logo" class="logo">
+            <button class="hamburger" onclick="toggleMenu()">
+                <span class="hamburger-icon">☰</span>
+                <span class="close-icon hidden">✕</span>
+            </button>
             <nav>
                 <button onclick="scrollToSection('home')">Home</button>
                 <button onclick="scrollToSection('project')">Project</button>
@@ -537,8 +647,7 @@
                 <button onclick="scrollToSection('contact')">Contact</button>
             </nav>
         </div>
-    </header>
-
+     </header>
     <!-- Hero Section -->
     <section id="home">
         <div class="hero-content">
@@ -856,6 +965,50 @@ function switchTab(tab) {
         document.getElementById('uxImage').classList.remove('hidden');
     }
 }
+function toggleMenu() {
+    const nav = document.querySelector('nav');
+    const hamburgerIcon = document.querySelector('.hamburger-icon');
+    const closeIcon = document.querySelector('.close-icon');
+    
+    nav.classList.toggle('active');
+    hamburgerIcon.classList.toggle('hidden');
+    closeIcon.classList.toggle('hidden');
+
+    // 메뉴가 열렸을 때 body 스크롤 막기
+    if (nav.classList.contains('active')) {
+        document.body.style.overflow = 'hidden';
+    } else {
+        document.body.style.overflow = '';
+    }
+}
+
+// 메뉴 항목 클릭 시 메뉴 닫기
+document.querySelectorAll('nav button').forEach(button => {
+    button.addEventListener('click', () => {
+        const nav = document.querySelector('nav');
+        const hamburgerIcon = document.querySelector('.hamburger-icon');
+        const closeIcon = document.querySelector('.close-icon');
+        
+        nav.classList.remove('active');
+        hamburgerIcon.classList.remove('hidden');
+        closeIcon.classList.add('hidden');
+        document.body.style.overflow = '';
+    });
+});
+
+// 화면 크기가 변경될 때 메뉴 상태 초기화
+window.addEventListener('resize', () => {
+    if (window.innerWidth > 768) {
+        const nav = document.querySelector('nav');
+        const hamburgerIcon = document.querySelector('.hamburger-icon');
+        const closeIcon = document.querySelector('.close-icon');
+        
+        nav.classList.remove('active');
+        hamburgerIcon.classList.remove('hidden');
+        closeIcon.classList.add('hidden');
+        document.body.style.overflow = '';
+    }
+});
     </script>
 </body>
 </html>
