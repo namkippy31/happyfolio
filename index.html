@@ -6,6 +6,8 @@
     <title>Portfolio</title>
     <!-- Pretendard 폰트 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+    <link rel="icon" href="./images/logo.png"/>
+
     <style>
         * {
             margin: 0;
@@ -700,6 +702,12 @@
                         <h3 class="project-title">그래픽 디자인</h3>
                     </div>
                 </div>
+                <div class="project-card" onclick="openProject(5)">
+                    <img src="./images/project5-thumb.jpg" alt="Project 4" class="project-thumb">
+                    <div class="project-overlay">
+                        <h3 class="project-title">매일의 기록</h3>
+                    </div>
+                </div>
                 <!-- 추가 프로젝트 카드들 -->
             </div>
         </div>
@@ -725,6 +733,8 @@
                         <img src="./images/project1-ux.png" alt="UX Process" class="project-full-image hidden" id="uxImage">
                         <img src="./images/project4-promotion.jpg" alt="Promotion Page" class="project-full-image hidden" id="promotionImage">
                         <img src="./images/project4-isometric.jpg" alt="Isometric View" class="project-full-image hidden" id="isometricImage">
+                        <img src="" alt="Benchmark" class="project-full-image hidden" id="benchmarkImage">
+                        <img src="" alt="Clone" class="project-full-image hidden" id="cloneImage">
                     </div>
         <div class="project-details">
             <h3>레진아트 브랜드</h3>
@@ -808,7 +818,7 @@
         description: "LG 그램의 핵심 가치인 초경량성과 휴대성을 강조한 독립 웹사이트를 디자인하고 개발했습니다. 복잡한 통합 사이트의 한계를 개선하여 사용자 중심의 직관적인 UI/UX를 구현하고, 제품의 특징을 효과적으로 전달하는 맞춤형 브랜딩 사이트를 구축했습니다.",
         period: "2024.09 - 2024.10",
         scope: "Web Design",
-        tools: "Figma, Illustrator",
+        tools: "Figma, Photoshop",
         isDetailPage: false  // Detail Page 사용
     },
     3: {
@@ -832,6 +842,15 @@
         scope: "Brand Design",
         tools: "Photoshop, Illustrator",
         isCustomTab: true  // 커스텀 탭 사용 여부
+    },
+    5: {
+        title: "매일의 기록",
+        pcImage: "./images/project5-pc.jpg",
+        description: "디자인 실력 향상을 위해 개인프로젝트 시작 전까지 매일 우수 사례 벤치마킹과 클론 작업을 진행하고 있습니다. 개인프로젝트 시작 후에는 각 프로젝트에 맞는 스타일 벤치마킹을 하고 있습니다. ",
+        period: "2024.07 - 2024.09",
+        scope: "벤치마킹, 클론",
+        tools: "Figma",
+        isCustomTab: false  // 커스텀 탭 사용 여부
     }
 };
 
@@ -847,10 +866,9 @@ function openProject(id) {
     // 이미지 크기 설정
     const images = popup.querySelectorAll('.project-full-image');
     images.forEach(img => {
-        // project4일 경우 width 900px로 설정
-        if(id === 4) {
+        if (id === 4) {  // 프로젝트 4일 경우
             img.style.width = '900px';
-            img.style.margin = '0 auto'; // 가운데 정렬
+            img.style.margin = '0 auto';
             img.style.display = 'block';
         } else {
             img.style.width = '100%';
@@ -861,7 +879,10 @@ function openProject(id) {
 
     // 탭 버튼 동적 생성
     const tabButtons = popup.querySelector('.tab-buttons');
-    if (project.isDetailPage) {  // 레진아트 프로젝트
+    if (id === 5) {
+        // project5는 탭 버튼 생성하지 않음
+        tabButtons.innerHTML = ''; // 탭 버튼 초기화
+    } else if (project.isDetailPage) {  // 레진아트 프로젝트
         tabButtons.innerHTML = `
             <button class="tab-btn active" onclick="switchTab('pc')">PC</button>
             <button class="tab-btn" onclick="switchTab('mobile')">Mobile</button>
@@ -905,11 +926,13 @@ function openProject(id) {
     popup.classList.add('active');
     document.body.style.overflow = 'hidden';
 
-    // 각 프로젝트에 맞는 초기 탭 설정
-    if (project.isCustomTab) {
-        switchTab('promotion');
-    } else {
-        switchTab('pc');
+    // 초기 탭 설정
+    if (id !== 5) {  // project5는 탭 전환 없음
+        if (project.isCustomTab) {
+            switchTab('promotion');
+        } else {
+            switchTab('pc');
+        }
     }
 }
 function switchTab(tab) {
